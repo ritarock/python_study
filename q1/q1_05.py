@@ -1,21 +1,16 @@
-import q1_04
+word = "I am an NLPer"
 
-word1 = "paraparaparadise"
-word2 = "paragraph"
-
-
-print(q1_04.n_gram(word1,2))
-print(q1_04.n_gram(word2,2))
+wordSplit = word.split(" ")
+wordList = list(word)
 
 
-X = set(q1_04.n_gram(word1,2))
-Y = set(q1_04.n_gram(word2,2))
+def n_gram(wordSplit,x):
+    last = len(wordSplit)
+    ans = []
+    for i in range(0,last-x + 1):
+        ans.append(wordSplit[i:i+x])
+    return ans
 
-print(X)
-print(Y)
-print("和集合:",X|Y)
-print("積集合:",X&Y)
-print("差集合:",X-Y)
 
-print('se' in X)
-print('se' in Y)
+print(n_gram(wordSplit,2))
+print(n_gram(word,2))
