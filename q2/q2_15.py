@@ -10,6 +10,6 @@ input = int(input)
 if input > len(text):
     print("error")
 else:
-    for n in range(0,input):
+    for n in range(input):
         ans = text[-input+n].replace("\n","")
         print(ans)
