@@ -3,8 +3,6 @@ import re
 
 f = './jawiki-country.json.gz'
 
-
-# print(q3_20.uktext(f))
 # [[Category:ヘルプ|はやみひよう]]
 
 text = uktext(f)
