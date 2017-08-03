@@ -9,5 +9,5 @@ def uktext(f):
       data_json = json.loads(line)
       if data_json['title'] == 'イギリス':
         return (data_json['text'])
-
+        break
 print(uktext(f))
