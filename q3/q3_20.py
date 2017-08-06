@@ -1,13 +1,23 @@
 import gzip
 import json
+import re
 
 f = './jawiki-country.json.gz'
 
-def uktext(f):
+# file = gzip.open(f)
+# for line in file:
+#   data_json = json.loads(line)
+#   # print(data_json['title'])
+#   if data_json['title'] == u'イギリス':
+#     text = data_json['text']
+#     break
+def uktext():
   with gzip.open(f) as file:
     for line in file:
       data_json = json.loads(line)
-      if data_json['title'] == 'イギリス':
-        return (data_json['text'])
+      if data_json['title'] == u'イギリス':
+        text = data_json['text']
         break
-print(uktext(f))
+    return text
+
+# print(uktext())
