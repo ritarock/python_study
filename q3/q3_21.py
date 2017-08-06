@@ -1,15 +1,16 @@
-from q3_20 import uktext
+import gzip
+import json
 import re
+import q3_20
 
 f = './jawiki-country.json.gz'
 
 # [[Category:ヘルプ|はやみひよう]]
 
-text = uktext(f)
+text = (q3_20.uktext()).split('\n')
 
-regex =r'^\[\[.*Category:>*\]\]$'
-pattern = re.compile(regex)
-matchObj = pattern.match(text)
+for i in text:
+    category_line = re.search("^\[\[Category:(.*?)(|\|.*)\]\]$", i)
+    if category_line is not None:
+        print(category_line.group(0))
 
-print(matchObj)
-print(pattern)
