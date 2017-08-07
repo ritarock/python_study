@@ -5,8 +5,6 @@ import q3_20
 
 f = './jawiki-country.json.gz'
 
-# [[Category:ヘルプ|はやみひよう]]
-
 text = (q3_20.uktext()).split('\n')
 
 for i in text:
