@@ -1,0 +1,10 @@
+{
+  "start":[
+  "Townk/vim-autoclose",
+  "fatih/vim-go"
+],
+  "opt":[
+    "scrooloose/nerdtree",
+    "tomasr/molokai"
+  ]
+}
