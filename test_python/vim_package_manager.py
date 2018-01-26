@@ -18,12 +18,13 @@ def main():
         opt_plugin_list.append(opt)
     # print(opt_plugin_list)
     check(start_plugin_list,home_path,start_dir)
-    check(opt_plugin_list,home_path,start_dir)
+    check(opt_plugin_list,home_path,opt_dir)
 
 def check(plugin_list,home_path,dir):
     path = home_path + dir
     check_plugin = []
     now_plugin = os.listdir(path)
+    print(path)
     add_list = []
     remove_list = []
 
@@ -51,7 +52,7 @@ def addfunc(add_list,home_path,dir):
         git_url = 'https://github.com/'
         repo = git_url + '/'.join(plugin) + '.git'
         path = home_path + dir + plugin[1]
-        # print(path)
+        # print(repo)
         # print('git clone'+repo+path)
         subprocess.run(['git','clone',repo,path])
 
