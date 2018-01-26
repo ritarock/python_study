@@ -41,8 +41,6 @@ def check(plugin_list,home_path,dir,tmp_list):
             for ad in add_diff:
                 if ad in l:
                     add_list.append(l.split('/'))
-        # print(add_list)
-
 
         # plugin_list.josにないプラグインを削除
         for plug in plugin_list:
@@ -58,14 +56,11 @@ def addfunc(add_list,home_path,dir):
         git_url = 'https://github.com/'
         repo = git_url + '/'.join(plugin) + '.git'
         path = home_path + dir + plugin[1]
-        # print(repo)
-        # print('git clone'+repo+path)
         subprocess.run(['git','clone',repo,path])
 
 def removefunc(remove_list,home_path,dir):
     for plug in remove_list:
         path = home_path + dir + plug
-        # print("remove"+path)
         shutil.rmtree(path)
 
 if __name__ == '__main__':
