@@ -13,18 +13,17 @@ def main():
     tmp_list = json.load(f)
     for start in tmp_list["start"]:
         start_plugin_list.append(start)
-    # print(start_plugin_list)
     for opt in tmp_list["opt"]:
         opt_plugin_list.append(opt)
-    # print(opt_plugin_list)
-    check(start_plugin_list,home_path,start_dir)
-    check(opt_plugin_list,home_path,opt_dir)
+    check(start_plugin_list,home_path,start_dir,tmp_list)
+    check(opt_plugin_list,home_path,opt_dir,tmp_list)
 
-def check(plugin_list,home_path,dir):
+def check(plugin_list,home_path,dir,tmp_list):
     path = home_path + dir
     check_plugin = []
     now_plugin = os.listdir(path)
-    print(path)
+    diff = []
+    add_diff = []
     add_list = []
     remove_list = []
 
@@ -34,15 +33,22 @@ def check(plugin_list,home_path,dir):
             add_list.append(plugin.split('/'))
     else:
         # plugin_list.josにあるプラグインを導入
-        for add in plugin_list:
-            add_list.append(add.split('/')[1])
-            add_tmp = set(add_list)-set(now_plugin)
-            add_list = list(add_tmp)
+        for d in plugin_list:
+            diff.append(d.split('/')[1])
+        add_tmp = set(diff) - set(now_plugin)
+        add_diff = list(add_tmp)
+        for l in tmp_list["start"]:
+            for ad in add_diff:
+                if ad in l:
+                    add_list.append(l.split('/'))
+        # print(add_list)
+
+
         # plugin_list.josにないプラグインを削除
         for plug in plugin_list:
             check_plugin.append(plug.split('/')[1])
-            rm_tmp = set(now_plugin) - set(check_plugin)
-            remove_list = list(rm_tmp)
+        rm_tmp = set(now_plugin) - set(check_plugin)
+        remove_list = list(rm_tmp)
 
     addfunc(add_list,home_path,dir)
     removefunc(remove_list,home_path,dir)
@@ -59,7 +65,7 @@ def addfunc(add_list,home_path,dir):
 def removefunc(remove_list,home_path,dir):
     for plug in remove_list:
         path = home_path + dir + plug
-        print("remove"+path)
+        # print("remove"+path)
         shutil.rmtree(path)
 
 if __name__ == '__main__':
