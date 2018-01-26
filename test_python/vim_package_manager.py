@@ -4,10 +4,24 @@ import json
 import shutil
 
 def main():
-    f = open('plugin_list.json','r')
-    plugin_list = json.load(f)
+    start_plugin_list = []
+    opt_plugin_list = []
+    start_dir = '/.vim/pack/mypackage/start/'
+    opt_dir = '/.vim/pack/mypackage/opt/myplugin/'
     home_path = os.path.expanduser('~')
-    path = home_path + '/.vim/pack/mypackage/start/'
+    f = open('plugin.json','r')
+    tmp_list = json.load(f)
+    for start in tmp_list["start"]:
+        start_plugin_list.append(start)
+    # print(start_plugin_list)
+    for opt in tmp_list["opt"]:
+        opt_plugin_list.append(opt)
+    # print(opt_plugin_list)
+    check(start_plugin_list,home_path,start_dir)
+    check(opt_plugin_list,home_path,start_dir)
+
+def check(plugin_list,home_path,dir):
+    path = home_path + dir
     check_plugin = []
     now_plugin = os.listdir(path)
     add_list = []
@@ -29,21 +43,22 @@ def main():
             rm_tmp = set(now_plugin) - set(check_plugin)
             remove_list = list(rm_tmp)
 
-    addfunc(add_list,home_path)
-    removefunc(remove_list,home_path)
+    addfunc(add_list,home_path,dir)
+    removefunc(remove_list,home_path,dir)
 
-def addfunc(add_list,home_path):
+def addfunc(add_list,home_path,dir):
     for plugin in add_list:
         git_url = 'https://github.com/'
         repo = git_url + '/'.join(plugin) + '.git'
-        path = home_path + '/.vim/pack/mypackage/start/' + plugin[1]
+        path = home_path + dir + plugin[1]
+        # print(path)
+        # print('git clone'+repo+path)
         subprocess.run(['git','clone',repo,path])
 
-def removefunc(remove_list,home_path):
-    # print(remove_list)
+def removefunc(remove_list,home_path,dir):
     for plug in remove_list:
-        path = home_path + '/.vim/pack/mypackage/start/' + plug
-        print(path)
+        path = home_path + dir + plug
+        print("remove"+path)
         shutil.rmtree(path)
 
 if __name__ == '__main__':
