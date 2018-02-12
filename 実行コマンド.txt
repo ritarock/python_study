@@ -1,4 +1,0 @@
-python manage.py runserver 0:8000
-
-root: admin
-pass: passroot
